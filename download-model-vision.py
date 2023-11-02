@@ -18,5 +18,7 @@ while True:
             ignore_patterns=["*.safetensors", "*.msgpack",
             "*.h5", "*.ot", ],
         )
+        print("download success")
+        break
     except Exception as e :
         print(e)
