@@ -1,16 +1,20 @@
 # pip install huggingface_hub
 from huggingface_hub import snapshot_download
 
-repo_id = "liuhaotian/llava-v1.5-13b"
+repo_id = "liuhaotian/llava-v1.5-7b"
 model_name = repo_id.split('/')[-1]
 local_dir = './models/' + repo_id
 cache_dir = local_dir + "/cache"
 # 因为huggingface_hub默认在linux中下载到系统缓存管理中，
 # 只需更改默认参数local_dir_use_symlinks=False，还可以通过local_dir设置存储路径。
-
+is_download_model = True
 allow = ["*.model", "*.json", "*.py", "*.md", "*.txt"]
-ignore = ["*.safetensors", "*.msgpack",  "*.bin", "*.h5", "*.ot", ] #: 避免下载任何模型
+ignore = [ "*.msgpack", "*.h5", "*.ot", ] #: 避免下载任何模型
+model_suffix = [ "*.safetensors", "*.bin" ]
 
+if is_download_model:
+    allow += model_suffix
+print(allow)
 while True:
     try:
         snapshot_download(
